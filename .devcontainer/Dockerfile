@@ -7,4 +7,15 @@ RUN apt-get update \
     #  Clean up
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+        dmsetup \
+        libseccomp-dev \
+        automake \
+        lvm2 \
+        inotify-tools \
+        entr \
+        udev \
+    && rm -rf /var/lib/apt/lists/*
+
 CMD ["/lib/systemd/systemd", "--system", "--unit=basic.target"]
